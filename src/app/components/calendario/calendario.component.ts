@@ -1,110 +1,151 @@
-import { Component, importProvidersFrom } from '@angular/core';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-
-
-
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { bootstrapApplication } from '@angular/platform-browser';
-import 'zone.js';
-import {
-  CalendarEvent,
-  CalendarEventTimesChangedEvent,
-  CalendarWeekViewBeforeRenderEvent,
-  CalendarDayViewBeforeRenderEvent,
-} from 'angular-calendar';
-import { Subject } from 'rxjs';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
-export const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  },
-};
-
+import { CommonModule } from "@angular/common";
+import { Component } from "@angular/core";
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/core'; // useful for typechecking
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
 @Component({
   selector: 'app-calendario',
   standalone: true,
-  imports: [CalendarModule,],
+  imports: [CommonModule, FullCalendarModule],
   templateUrl: './calendario.component.html',
   styleUrl: './calendario.component.css',
   providers:[]
 })
 export class CalendarioComponent {
-  view: string = 'week';
-  snapDraggedEvents = true;
 
-  dayStartHour = 6;
-  viewDate: Date = new Date();
+  // calendarOptions: CalendarOptions = {
+  //   initialView: 'dayGridMonth',
+  //   plugins: [dayGridPlugin],
+  //   locale: 'es-MX',
+  //   buttonText: {
+  //     today: 'Hoy'
+  //   }
+  // };
 
-  events: CalendarEvent[] = [
-    {
-      title: 'Draggable event',
-      color: colors.yellow,
-      start: new Date(),
-      draggable: true,
+  calendarOptions:CalendarOptions ={
+    plugins: [dayGridPlugin, interactionPlugin],
+    initialView: 'dayGridMonth',
+    locale: 'es-MX',
+    buttonText: {
+      today: 'Hoy'
     },
-    {
-      title: 'A non draggable event',
-      color: colors.blue,
-      start: new Date(),
-    },
-  ];
+    height: 'auto',
 
-  refresh: Subject<any> = new Subject();
+    eventClick: (arg2) => this.handleEventClick(arg2),
+    aspectRatio: 1.35,
+    events: [
+      { title: 'event 1', date: '2024-05-15'},
+      { title: 'event 2', date: '2024-05-17' }
+    ]
+  }
+  selectedEvent: any;
 
-  eventTimesChanged({ event, newStart, newEnd }: any): void {
-    event.start = newStart;
-    event.end = newEnd;
-    this.refresh.next(null);
+  onEventClick(event: any) {
+    console.log('Evento cliqueado:', event);
   }
-  public segmentIsValid(date: Date) {
-    // valid if time is greater than 0800 andd less than 1700
-    return date.getHours() >= 8 && date.getHours() <= 17;
+
+  // handleDateClick(arg: DateClickArg) {
+  //   alert('date click! ' + arg.dateStr)
+  // }
+  handleEventClick(event: EventClickArg) {
+    this.isModalOpen = true;
+    this.selectedEvent = event.event;
+    console.log('Selected event:', event);
   }
-  beforeDayViewRender(day: CalendarDayViewBeforeRenderEvent): void {
-    // day.body.hourGrid.forEach((hour) => {
-    //   hour.segments.forEach((segment) => {
-    //     if (!this.segmentIsValid(segment.date)) {
-    //       delete segment.cssClass;
-    //       segment.cssClass = 'cal-disabled';
-    //     }
-    //   });
-    // });
+  // ngOnInit() {
+  //   this.calendarOptions = {
+  //     plugins: [dayGridPlugin, interactionPlugin],
+  //     initialView: 'dayGridMonth',
+  //     locale: 'es-MX'
+  //   };
+
+  closeModal() {
+    this.isModalOpen = false;
   }
-  beforeWeekViewRender(body: CalendarWeekViewBeforeRenderEvent): void {
-    body.hourColumns.forEach((hourCol) => {
-      hourCol.hours.forEach((hour) => {
-        hour.segments.forEach((segment) => {
-          if (!this.segmentIsValid(segment.date)) {
-            delete segment.cssClass;
-            segment.cssClass = 'cal-disabled';
-          }
-        });
-      });
-    });
+  //isModalOpen: boolean = false;
+  modalData: any = null; // Variable para almacenar los datos del modal
+
+  openModal() {
+    this.isModalOpen = true;
   }
+  isModalOpen: boolean = false
+//   daysGrid: number[][] = [];
+//   constructor() { }
+//   year:number | undefined;
+//   mes:number  | undefined;
+//   ngOnInit(): void {
+//     this.year = new Date().getFullYear();
+//     this.mes = new Date().getMonth();
+//     this.createCalendar(this.year, this.mes); // Llama a la función para crear el calendario
+//   }
+
+//   createCalendar(year: number, month: number): void {
+//     let mon = month - 1; // los meses en JS son 0..11, no 1..12
+//     let d = new Date(year, mon);
+
+//     const firstDayOfWeek = this.getDay(d);
+//     const lastDayOfPreviousMonth = new Date(year, mon, 0).getDate();
+//     const prependEmptyDays = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Días a agregar al principio
+
+//     let daysInMonth = [];
+//     let daysGridRow = [];
+
+//     // Agregar días del mes anterior si el primer día no es lunes
+//     if (prependEmptyDays > 0) {
+//       for (let i = lastDayOfPreviousMonth - prependEmptyDays + 1; i <= lastDayOfPreviousMonth; i++) {
+//         daysGridRow.push(i);
+//       }
+//     }
+
+//     // <div> con el día (1 - 31)
+//     while (d.getMonth() == mon) {
+//       daysInMonth.push(d.getDate());
+
+//       if (this.getDay(d) % 7 == 6) {
+//         // Domingo, último día de la semana --> nueva línea
+//         this.daysGrid.push([...daysGridRow, ...daysInMonth]);
+//         daysInMonth = [];
+//         daysGridRow = [];
+//       }
+
+//       d.setDate(d.getDate() + 1);
+//     }
+
+//     // Si quedan días por agregar después de completar la última semana
+//     if (daysInMonth.length > 0) {
+
+//        // Llenar el resto de la fila con días del mes siguiente
+//        const nextMonth = month === 12 ? 1 : month + 1;
+//        const daysInNextMonth = new Date(year, nextMonth, 0).getDate();
+//        for (let i = 1; daysGridRow.length < 7; i++) {
+//          daysGridRow.push(i);
+//        }
+//        this.daysGrid.push([...daysGridRow, ...daysInMonth]);
+//       // Si el último día de la última semana del mes actual es un sábado (6),
+//       // necesitamos iniciar una nueva fila para el mes siguiente
+//       if (this.getDay(d) === 6) {
+//         d.setDate(1); // Establecer la fecha al primer día del mes siguiente
+//         const firstDayOfWeekNextMonth = this.getDay(d);
+//         const nextDaysGridRow = [];
+//         for (let i = 1; i <= 7; i++) {
+//           nextDaysGridRow.push(i);
+//         }
+//         this.daysGrid.push([...nextDaysGridRow]);
+//       }
+
+
+//     }
+//   }
+
+//   getDay(date: Date): number {
+//     // Obtiene el número de día desde 0 (lunes) a 6 (domingo)
+//     let day = date.getDay();
+//     if (day == 0) day = 7; // Hacer domingo (0) el último día
+//     return day - 1;
+//   }
+// }
+
+
 }
-
-bootstrapApplication(CalendarioComponent, {
-  providers: [
-    provideAnimations(),
-    importProvidersFrom(
-      CalendarModule.forRoot({
-        provide: DateAdapter,
-        useFactory: adapterFactory,
-      })
-    ),
-  ],
-});
-
-
