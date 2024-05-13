@@ -1,0 +1,76 @@
+<div class="flex justify-between p-2 mb-4 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
+  <div class="font-semibold">
+    Inicio
+  </div>
+  <div class="hidden sm:flex items-center space-x-4">
+    <div (click)="OrdenCambio()" [ngClass]="{'selectOrden':orden == false}" class="hover:bg-gray-400 rounded-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#434343">
+        <path d="M627-520h133v-160H627v160Zm-214 0h133v-160H413v160Zm-213 0h133v-160H200v160Zm0 240h133v-160H200v160Zm213 0h133v-160H413v160Zm214 0h133v-160H627v160Zm-507 0v-400q0-33 23.5-56.5T200-760h560q33 0 56.5 23.5T840-680v400q0 33-23.5 56.5T760-200H200q-33 0-56.5-23.5T120-280Z"/>
+      </svg>
+    </div>
+    <div (click)="OrdenCambio()" [ngClass]="{'selectOrden':orden == true}" class="hover:bg-gray-400 rounded-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#434343">
+        <path d="M200-520q-33 0-56.5-23.5T120-600v-160q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v160q0 33-23.5 56.5T760-520H200Zm0-80h560v-160H200v160Zm0 480q-33 0-56.5-23.5T120-200v-160q0-33 23.5-56.5T200-440h560q33 0 56.5 23.5T840-360v160q0 33-23.5 56.5T760-120H200Zm0-80h560v-160H200v160Zm0-560v160-160Zm0 400v160-160Z"/>
+      </svg>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<div [ngClass]="{'inicio-large':orden == false, 'inicio-small':orden == true}">
+  @for (item of data; track $index) {
+    <div class="flex justify-center">
+      <div [ngClass]="{'card-small':orden == true, 'card-large':orden == false}">
+        <a href="#">
+          <img class="pt-2 px-4 rounded-t-lg" src="{{item.img}}" alt="product image" />
+        </a>
+        <div class="px-5 pb-5">
+          <a href="">
+              <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-black">
+                {{item.titulo}}
+              </h5>
+          </a>
+          <div class="pt-2">
+            <span class="bg-gray-200 text-black text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+              {{item.tag}}
+            </span>
+            <span class="bg-gray-200 text-black text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+              Academias
+            </span>
+            <span class="bg-gray-200 text-black text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+              noticias
+            </span>
+          </div>
+          <div class="pt-3">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                  <img class="w-8 h-8 rounded-full" src="{{item.imgtch}}" alt="Neil image">
+              </div>
+              <div class="flex-1 min-w-0 ms-4">
+                  <p class="text-sm font-medium text-gray-900 truncate dark:text-black">
+                      {{item.nombretch}}
+                  </p>
+                  <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                    {{item.fecha}}
+                  </p>
+              </div>
+              <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+
+              </div>
+          </div>
+          </div>
+          <div class="flex items-center justify-between text-gray-700">
+            <p>
+              {{item.contenido}}
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+

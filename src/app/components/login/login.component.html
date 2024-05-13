@@ -1,0 +1,103 @@
+<div class="h-screen  flex justify-center items-center bg-black">
+  <!-- Contenedor que abarca todo el tamaño de la ventana -->
+  <div class="bg-white p-8 w-96 rounded-lg">
+    <div class="flex justify-start ...">
+      <div>
+        <img
+    src="https://th.bing.com/th/id/R.0b0e8bf6746e02b220e57a95795bf26d?rik=8IRXCp8uh%2byb3A&pid=ImgRaw&r=0"
+    class="size-5"
+  />
+      </div>
+      <div>
+        <h3 class="w-auto font-semibold">INNOVAT Alumno</h3>
+      </div>
+    </div>
+    <p class="text-2xl font-semibold text-gray-900 dark:text-black">!Bienvenido</p>
+    <form class="max-w-sm mx-auto">
+      <div class="mb-2">
+        <label
+          for="email"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+          >Escuela</label
+        >
+        <input
+          type="text"
+          id="text"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Nombre del plantel"
+          required
+        />
+      </div>
+
+      <div class="mb-2">
+        <label
+          for="email"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+          >Usuario</label
+        >
+        <input
+          type="text"
+          id="usuario"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="a####"
+          required
+        />
+      </div>
+
+      <div class="mb-2">
+        <label
+          for="email"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+          >Contraseña</label
+        >
+        <input
+          type="password"
+          id="password"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="***********"
+          required
+        />
+      </div>
+
+
+
+      <div class="flex justify-between ...">
+        <div>
+          <div class="flex items-start mb-5">
+            <div class="flex items-center h-5">
+              <input
+                id="remember"
+                type="checkbox"
+                value=""
+                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                required
+              />
+            </div>
+            <div>
+              <label
+              for="remember"
+              class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >Recordarme</label
+            >
+
+
+          </div>
+
+          </div>
+        </div>
+        <div>
+          <a href="" class="text-blue-700">
+            ¿Olvido su contraseña?
+          </a>
+        </div>
+      </div>
+      <div class="w-full">
+        <button [routerLink]="'home'" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded">
+          Iniciar Sesión
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</div>

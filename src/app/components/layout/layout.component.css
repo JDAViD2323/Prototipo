@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mv-navbar {
+  flex: none; /* No se expandirá, mantendrá su altura original */
+}
+
+.flex-1 {
+  flex: 1; /* Se expandirá para ocupar todo el espacio disponible */
+}
+
+mv-sidebar {
+  flex: none; /* No se expandirá, mantendrá su altura original */
+  height: calc(100% - 4rem); /* Resta la altura del Navbar */
+}

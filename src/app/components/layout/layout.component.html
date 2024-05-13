@@ -1,0 +1,78 @@
+<!-- <div class="h-screen">
+  <div class="flex flex-col h-full">
+
+    <mw-navbar ></mw-navbar>
+    <div class="flex flex-col md:flex-row h-full">
+
+      <mw-sidebar ></mw-sidebar>
+
+      <div class="flex flex-col flex-1 h-full overflow-y-auto">
+        <div class="m-4">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
+<!--
+ <div class="h-screen flex flex-col">
+
+  <mw-navbar (toggleSidebar)="recibirBooleano($event)" class="sticky top-0 z-10"></mw-navbar>
+
+
+  <div class="flex flex-1 overflow-hidden">
+    <
+    <mw-sidebar [Status]="booleanoRecibido" class="h-full"></mw-sidebar>
+
+
+    <div class="flex flex-col  flex-1 overflow-y-auto">
+      <div class="m-4 content-center">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
+
+ <!-- <div class="h-screen w-full flex flex-col">
+  <mw-navbar (toggleSidebar)="recibirBooleano($event)" class="  sticky top-0 z-10"></mw-navbar>
+
+  <div class="flex flex-1 overflow-hidden">
+
+    <mw-sidebar [Status]="booleanoRecibido" class="h-full"></mw-sidebar>
+
+    <div class="flex flex-col flex-1 overflow-y-auto">
+      <div class="m-4">
+        <router-outlet></router-outlet>
+      </div>
+
+
+    </div>
+  </div>
+  <mw-footer></mw-footer>
+
+</div> -->
+
+
+<div class="h-screen w-full flex flex-col">
+  <!-- Navbar -->
+  <mw-navbar (toggleSidebar)="recibirBooleano($event)" class="sticky top-0 z-10"></mw-navbar>
+
+  <!-- Contenedor principal -->
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar -->
+    <mw-sidebar [Status]="booleanoRecibido" class="flex-none"></mw-sidebar> <!-- Utiliza flex-none para que el sidebar no crezca -->
+
+    <!-- Contenido -->
+    <div class="flex flex-col flex-1 overflow-y-auto">
+      <div class="m-4">
+        <router-outlet></router-outlet> <!-- o contenido estático -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <mw-footer></mw-footer>
+</div>
+

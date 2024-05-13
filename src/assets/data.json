@@ -1,0 +1,24 @@
+
+[
+  {
+    "id": 1,
+    "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "tag": "Circular",
+    "date": "12 Oct",
+    "favorito": true
+  },
+  {
+    "id": 2,
+    "text": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "tag": "Urgente",
+    "date": "15 Oct",
+    "favorito": false
+  },
+  {
+    "id": 3,
+    "text": "Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "tag": "Importante",
+    "date": "18 Oct",
+    "favorito": true
+  }
+]

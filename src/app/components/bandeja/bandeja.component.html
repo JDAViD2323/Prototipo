@@ -1,0 +1,142 @@
+
+<div class="w-full">
+
+
+  <div class="flex justify-between p-6  w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
+    <div>
+      <p class="font-semibold text-xl">
+        Mensajes
+      </p>
+    </div>
+    <div>
+      <form class="max-w-sm mx-auto">
+
+        <select id="countries" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Filtrar</option>
+          <option value="">Archivados</option>
+          <option value="">Favoritos</option>
+          <option value="">Circular</option>
+          <option value="">Vialidad</option>
+          <option value="">Utilies Escolares</option>
+          <option value="">Extracurricular</option>
+        </select>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<div class=" mt-5 rounded-lg shadow columns-1 ">
+
+  <div *ngFor="let data of getCurrentPageData()">
+    <button (click)="toggleModal(data)" class="mb-2 relative text-start flex justify-between p-6 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
+      <div class="flex items-center relative"> <!-- Contenedor para el primer y segundo div -->
+        <!-- SVG independiente -->
+
+          <svg *ngIf="data.favorito; else svg2" class="absolute left-0 top-0 w-4 h-4 text-yellow-300 me-1 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" (click)="toggleFavorite(data,$event)">
+            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+          </svg>
+          <ng-template #svg2>
+            <svg *ngIf="!data.favorito" class="absolute left-0 top-0 w-4 h-4 text-yellow-300 me-1 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" (click)="toggleFavorite(data,$event)">
+              <svg class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+            </svg>
+          </ng-template>
+
+
+        <div class="pl-5"> <!-- Agregamos un padding al div -->
+          <p>{{ data.text }}</p>
+          <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+            {{ data.tag }}
+          </span>
+        </div>
+      </div> <!-- Fin del contenedor para el primer y segundo div -->
+
+      <div class="w-16 font-semibold text-gray-400"> <!-- Tercer div alineado a la derecha -->
+        <p>{{ data.date }}</p>
+      </div>
+    </button>
+  </div>
+
+
+
+</div>
+
+<div class="flex justify-center w-full pt-5 pb-5">
+  <nav aria-label="Page navigation example">
+    <ul class="flex items-center -space-x-px h-10 text-base">
+      <!-- Botones de paginación -->
+      <li *ngFor="let pageNumber of getPageNumbers()" [class]="currentPage === pageNumber ? 'bg-blue-50 text-blue-600' : 'bg-white text-gray-500'">
+        <a (click)="changePage(pageNumber)" class="flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+          {{ pageNumber }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+  <div class="bg-white p-8 rounded shadow-md w-1/2">
+    <div class="flex justify-end">
+      <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="flex justify-between ...">
+      <div>
+        <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+        Circular
+      </span></div>
+      <div></div>
+      <div class="flex justify-between ... p-2 items-center">
+        <div class="mx-4">
+          <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+        </svg>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#B7B7B7">
+            <path d="M200-80q-33 0-56.5-23.5T120-160v-451q-18-11-29-28.5T80-680v-120q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v120q0 23-11 40.5T840-611v451q0 33-23.5 56.5T760-80H200Zm0-520v440h560v-440H200Zm-40-80h640v-120H160v120Zm200 280h240v-80H360v80Zm120 20Z"/>
+          </svg>
+        </div>
+
+
+      </div>
+    </div>
+    <div class=" p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div>
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Circular de Normas Académicas y de convivencia</h5>
+      </div>
+      <div>
+        <div class="pt-3">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+                <img class="w-8 h-8 rounded-full" src="https://th.bing.com/th/id/OIP.tvaMwK3QuFxhTYg4PSNNVAHaHa?rs=1&pid=ImgDetMain" alt="Neil image">
+            </div>
+            <div class="flex-1 min-w-0 ms-4">
+                <p class="text-sm font-medium text-gray-900 truncate dark:text-black">
+                    MS. Mayra Martinez
+                </p>
+                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                  16 Sep 2024
+                </p>
+            </div>
+            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+
+            </div>
+        </div>
+        </div>
+      </div>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+
+      </p>
+
+  </div>
+  </div>
+</div>
+

@@ -1,0 +1,22 @@
+img {
+  border-radius: 40px;
+}
+
+.inicio-large{
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4
+}
+.inicio-small{
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4
+}
+
+.card-large {
+  @apply w-full max-w-sm bg-white border border-gray-50 rounded-lg shadow dark:bg-white dark:border-gray-50
+}
+
+.card-small {
+  @apply w-5/6 max-w-3xl bg-white border border-gray-50 rounded-lg shadow dark:bg-white dark:border-gray-50
+}
+
+.selectOrden{
+  @apply bg-orange-500
+}
