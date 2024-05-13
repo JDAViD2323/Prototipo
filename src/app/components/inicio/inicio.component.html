@@ -34,15 +34,11 @@
               </h5>
           </a>
           <div class="pt-2">
+            @for (tag of item.tag; track $index) {
             <span class="bg-gray-200 text-black text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
-              {{item.tag}}
+              {{tag}}
             </span>
-            <span class="bg-gray-200 text-black text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
-              Academias
-            </span>
-            <span class="bg-gray-200 text-black text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
-              noticias
-            </span>
+          }
           </div>
           <div class="pt-3">
             <div class="flex items-center">

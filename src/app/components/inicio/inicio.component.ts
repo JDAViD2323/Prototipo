@@ -23,7 +23,7 @@ export class InicioComponent {
       id: 1,
       img: "https://institutosandiego.edu.mx/wp-content/uploads/2024/01/2024-01-kindness.jpg",
       titulo: "The Great Kindness Challenge",
-      tag:["Avisos", "Noticias", "Academias"],
+      tag:["Avisos", "Noticias", "Academias", "Extra"],
       imgtch: "https://th.bing.com/th/id/OIP.tvaMwK3QuFxhTYg4PSNNVAHaHa?rs=1&pid=ImgDetMain",
       nombretch: "MiS. Mayra Martinez",
       fecha: "30 enero 2024",
