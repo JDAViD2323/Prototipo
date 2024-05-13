@@ -4,8 +4,8 @@ import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 
 export const routes: Routes = [
-  {path: '', component:LoginComponent},
-  {path:'login', component:LoginComponent},
+  {path: '', title: 'Login',  component:LoginComponent},
+  {path:'login', title: 'Login', component:LoginComponent},
   {path:'home', component:LayoutComponent, children:[
     {path:'', title: 'Inicio', loadComponent: () => import('./components/inicio/inicio.component').then(c => c.InicioComponent)},
     {path: "inicio", title: "Inicio", loadComponent: () => import('./components/inicio/inicio.component').then(c => c.InicioComponent)},
