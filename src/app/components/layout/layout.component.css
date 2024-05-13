@@ -16,3 +16,7 @@ mv-sidebar {
   flex: none; /* No se expandirá, mantendrá su altura original */
   height: calc(100% - 4rem); /* Resta la altura del Navbar */
 }
+
+mv-navbar {
+  background-color: #100e9f;
+}
