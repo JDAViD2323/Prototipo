@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
+import { VariableService } from '../../sidebar.service';
 
 @Component({
   selector: 'mw-navbar',
@@ -14,8 +15,11 @@ export class NavbarComponent {
   isOpen: boolean = false;
   isOpenS: boolean = false
 
-  constructor(){
-    console.log("n" + this.isOpenS);
+  constructor(private variableService: VariableService) {}
+
+  cambiarValorDeVariable() {
+    this.isOpenS = !this.isOpenS;
+    this.variableService.setVariable(this.isOpenS);
   }
   color= "#FF6600";
   color2 = "#100e9f";
@@ -42,6 +46,9 @@ export class NavbarComponent {
   openModal() {
     this.isModalOpen = true;
   }
+
+
+
 
 
 }
