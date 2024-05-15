@@ -1,23 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { dat } from '../../interface/mensaje.interface';
+import { MensajeService } from '../../service/Mensajes.service';
+import { Observable } from 'rxjs';
 
-interface dat{
-    id: number,
-    text: string
-    date: string,
-    tag: string,
-    favorito: boolean
-}
+
 
 @Component({  selector: 'app-bandeja',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,HttpClientModule,FormsModule,ReactiveFormsModule],
   templateUrl: './bandeja.component.html',
-  styleUrl: './bandeja.component.css'
+  styleUrl: './bandeja.component.css',
+  providers:[HttpClient,MensajeService]
 })
 export class BandejaComponent {
+  public datas: dat[] | undefined = [];
   isModalOpen: boolean = false;
+  filtroValue: boolean = false;
+  filtroData : string = "Todos";
+  messData: dat[] = [];
+
+    result2: dat[] | undefined= [];
   datomoda: dat = {
       id: 0,
       text: "",
@@ -25,6 +30,20 @@ export class BandejaComponent {
       date: "",
       favorito: false
   };
+
+  constructor(private fb: FormBuilder, private mensajeService: MensajeService){
+    // this.MensajeService.getData().subscribe(
+    //   (response) => {
+    //     this.datas = response;
+    //     console.log(this.datas);
+    //   },
+    //   (error) => {
+    //     console.error('Error al obtener los datos:', error);
+    //   }
+    // );
+
+  }
+
   closeModal() {
     this.isModalOpen = false;
   }
@@ -44,8 +63,9 @@ export class BandejaComponent {
   //   this.datomoda = dato
 
   // }
-  toggleModal(data: any) {
-    this.selectedButtonData = data;
+
+  toggleModal(data: dat) {
+    this.datomoda = data;
     this.isModalOpen = !this.isModalOpen;
   }
 
@@ -59,214 +79,59 @@ export class BandejaComponent {
     this.showSvg1 = !this.showSvg1;
   }
 
-
-  datas:dat[] = [
-    {
-      "id": 0,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Importante",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 1,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 2,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 3,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 4,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 5,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 6,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Importante",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 7,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 8,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 9,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 10,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 11,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 12,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 13,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Importante",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 14,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Importante",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 15,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 16,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 17,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 18,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 19,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 20,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 21,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 22,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 23,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 24,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 25,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": true
-    },
-    {
-      "id": 26,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Extracurricular",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 27,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": false
-    },
-    {
-      "id": 28,
-      "text": "6Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "tag": "Circular",
-      "date": "18 Oct",
-      "favorito": true
-    }
-  ];
+  public myForm: FormGroup = this.fb.group({
+    filtro:[this.filtroData,[Validators.required]]
+  })
 
   ngOnInit() {
+
+
+      // this.mensajeService.getData().Observable<dat[]>(
+      //   (response) => {
+      //     this.datas = response;
+      //     console.log(this.datas);
+      //   },
+      //   (error) => {
+      //     console.error('Error al obtener los datos:', error);
+      //   }
+      // );
+
+
+      // this.dataService.getData().subscribe(
+      //   (response) => {
+      //     this.data = response;
+      //     console.log(this.data);
+      //   },
+      //   (error) => {
+      //     console.error('Error al obtener los datos:', error);
+      //   }
+      // );
+
+      this.mensajeService.getMessages().subscribe(
+        (respose) => {
+          //console.log(respose.toString());
+          this.datas = respose;
+          this.result2 = respose;
+        }
+      )
+
+      // Suscripción a los cambios en el FormGroup
+//   this.fb.valueChanges.subscribe(nuevoValor => {
+//     console.log('Nuevo valor del FormGroup:', nuevoValor);
+//     // Puedes realizar acciones adicionales aquí, como llamar a métodos o enviar datos al servidor
+//   });
+
+      this.myForm.valueChanges.subscribe(nuevovalor =>[
+        console.log(nuevovalor),
+        this.filtroData =this.myForm.controls['filtro'].value,
+        this.filtro(this.filtroData)
+      ])
+
+      this.myForm.setValue({
+        filtro : "Todos"
+      })
+
+
 
   }
 
@@ -278,7 +143,7 @@ export class BandejaComponent {
   currentPage: number = 1;
   itemsPerPage: number = 5; // Define la cantidad de elementos por página
 
-  // Supongamos que tienes un arreglo de datos llamado datas
+
   // datas: any[] = [
   //   // Aquí irían tus datos
   // ];
@@ -286,20 +151,75 @@ export class BandejaComponent {
   // Método para cambiar la página
   changePage(pageNumber: number) {
     this.currentPage = pageNumber;
+    this.getCurrentPageData(this.result2!)
   }
 
   // Método para obtener los datos correspondientes a la página actual
-  getCurrentPageData() {
+  getCurrentPageData(datos: dat[]) {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    return this.datas.slice(startIndex, endIndex);
+    this.messData = datos!.slice(startIndex, endIndex);
+    // if(this.filtroValue){
+    //   return this.result2.slice(startIndex, endIndex);
+    // }else{
+    //   return this.datas.slice(startIndex, endIndex);
+    // }
+
   }
 
   // Método para obtener los números de página
-  getPageNumbers() {
-    const pageCount = Math.ceil(this.datas.length / this.itemsPerPage);
+  getPageNumbers(datos:dat[]) {
+    if(this.messData.length ===0){
+      this.getCurrentPageData(datos);
+    }
+    //const pageCount = Math.ceil(this.datas.length / this.itemsPerPage);
+    const pageCount = Math.ceil(datos.length / this.itemsPerPage);
     return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
+
+  //  filtrarProductos(array:dat[], searchString:String): void{
+  //   const result = array.filter(x => {
+  //        const values = Object.values(x);
+  //         if (values.some(y => y.toString().toLowerCase().includes(searchString.toLowerCase()))){
+  //             return x;
+  //         }
+  //       })
+  //     this.datas = result;
+  //   }
+
+
+  filtro(tag:string){
+    if(tag === "Todos"){
+      this.filtroValue = false;
+    }else{
+      this.filtroValue = false
+    }
+
+    if(tag != "Todos"){
+      if(tag === "Favoritos"){
+        this.result2 = this.datas!.filter((x) => x.favorito === true);
+        console.log(this.result2);
+      }else{
+        this.result2 = this.datas!.filter((x) => x.tag === tag);
+        console.log(this.result2);
+      }
+
+    }
+    else{
+
+      this.result2 = this.datas;
+      console.log(this.datas);
+    }
+    this.getCurrentPageData(this.result2!)
+    this.getPageNumbers(this.result2!)
+  }
+
+
+
+
+
+//
+// }
 
 
 }

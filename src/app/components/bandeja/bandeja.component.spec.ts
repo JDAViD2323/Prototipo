@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BandejaComponent } from './bandeja.component';
 
-import { BandejaComponent } from './BandejaComponent';
 
 describe('BandejaComponent', () => {
   let component: BandejaComponent;
