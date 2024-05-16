@@ -21,6 +21,7 @@ export class BandejaComponent {
   filtroValue: boolean = false;
   filtroData : string = "Todos";
   messData: dat[] = [];
+  numeroMesaje: number = 0;
 
     result2: dat[] | undefined= [];
   datomoda: dat = {
@@ -64,9 +65,13 @@ export class BandejaComponent {
 
   // }
 
-  toggleModal(data: dat) {
-    this.datomoda = data;
+  toggleModal(data: dat): void {
+    console.log(data);
+    this.datomoda = this.result2![data.id];
     this.isModalOpen = !this.isModalOpen;
+    console.log(this.datomoda)
+    this.numeroMesaje = data.id
+    console.log(this.numeroMesaje)
   }
 
   showSvg1: boolean = true;
@@ -215,7 +220,29 @@ export class BandejaComponent {
   }
 
 
+  //Metodo para cambiar de mensaje
+  nextMessage(): void{
+    if(this.result2!.length-2 >= this.numeroMesaje){
+      this.numeroMesaje = this.numeroMesaje + 1;
+      this.datomoda = this.result2![this.numeroMesaje];
+      console.log("siguiente")
+      console.log(this.numeroMesaje + "=" +this.result2!.length)
+      console.log(this.datomoda)
+      console.log(this.datomoda.tag)
+    }
 
+  }
+
+  previousMessage(){
+    if(this.numeroMesaje > 0){
+      this.numeroMesaje = this.numeroMesaje -1;
+      this.datomoda = this.result2![this.numeroMesaje];
+      console.log("Anterior")
+      console.log(this.numeroMesaje)
+      console.log(this.datomoda)
+    }
+
+  }
 
 
 //
