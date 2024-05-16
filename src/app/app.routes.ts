@@ -16,7 +16,8 @@ export const routes: Routes = [
       {path: "materia", title:'Materia', loadComponent: () => import('./components/calificaciones/pages/grafica1/grafica1.component').then(c => c.Grafica1Component)}
     ]},
     {path: 'estado-cuenta', title: 'Estado de cuenta', loadComponent: () => import('./components/estado-cuenta/estado-cuenta.component').then(c => c.EstadoCuentaComponent)},
-    {path: 'pago', title: 'Pagos', loadComponent: () => import('./components/pagos/pagos.component').then(c => c.PagosComponent)}
+    {path: 'pago', title: 'Pagos', loadComponent: () => import('./components/pagos/pagos.component').then(c => c.PagosComponent)},
+    {path: 'perfil',title: 'Perfil', loadComponent: () => import('./components/perfil/perfil.component').then(c => c.PerfilComponent)}
   ]},
   {path: '**', redirectTo:'home'}
 
