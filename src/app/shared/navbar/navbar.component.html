@@ -277,7 +277,7 @@
       <div class="relative">
         <button
           type="button"
-          (click)="toggleDropdown()"
+          mat-button [matMenuTriggerFor]="menu"
           class="flex items-center justify-center text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
         >
         <span class="sr-only">Usuario</span>
@@ -287,7 +287,20 @@
           alt="user photo"
         />
         </button>
-
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>account_circle</mat-icon>
+            <span>Perfil</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>settings_account_box</mat-icon>
+            <span>Configuraciónl</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar Sesión</span>
+          </button>
+        </mat-menu>
         <div
           *ngIf="isOpen"
           class="absolute z-50 transform -translate-x-24 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 max-w-max"
