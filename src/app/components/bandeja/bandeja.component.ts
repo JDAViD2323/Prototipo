@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { dat } from '../../interface/mensaje.interface';
 import { MensajeService } from '../../service/Mensajes.service';
 import { Observable } from 'rxjs';
+import { id } from '@swimlane/ngx-charts';
 
 
 
@@ -16,14 +17,14 @@ import { Observable } from 'rxjs';
   providers:[HttpClient,MensajeService]
 })
 export class BandejaComponent {
-  public datas: dat[] | undefined = [];
+  public datas!: dat[] ;
   isModalOpen: boolean = false;
   filtroValue: boolean = false;
   filtroData : string = "Todos";
   messData: dat[] = [];
   numeroMesaje: number = 0;
 
-    result2: dat[] | undefined= [];
+  result2: dat[] | undefined= [];
   datomoda: dat = {
       id: 0,
       text: "",
@@ -65,10 +66,20 @@ export class BandejaComponent {
   //   this.datomoda = dato
 
   // }
+  getElementByIdAsJson(id: number): dat {
+    // Usar find para encontrar el elemento por ID
+    let element: dat | undefined = this.result2!.find(data => data.id === id);
+
+    if (element) {
+      return element;
+    } else {
+      throw new Error("Elemento no encontrado");
+    }
+  }
 
   toggleModal(data: dat): void {
     console.log(data);
-    this.datomoda = this.result2![data.id];
+    this.datomoda = this.getElementByIdAsJson(data.id)
     this.isModalOpen = !this.isModalOpen;
     console.log(this.datomoda)
     this.numeroMesaje = data.id
