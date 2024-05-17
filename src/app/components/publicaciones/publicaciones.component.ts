@@ -69,14 +69,9 @@ export class PublicacionesComponent implements OnInit {
       contenido: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam distinctio odio deserunt repellat modi sint enim dolorem. Iure accusamus labore natus aliquam iusto, consectetur cupiditate ipsa ut repudiandae accusantium. Labore."
     }
   ];
-  publu$: Observable<publicacion> | undefined;
-  selectedId: number | undefined;
-  dato: publicacion | undefined ;
-  activatedRoute: any;
-  publicSelect: any;
+  publicSelect:number =0;
   constructor(
-    private route: ActivatedRoute,
-    private router: Router
+
   ){}
 
   ngOnInit(): void {
@@ -103,10 +98,7 @@ export class PublicacionesComponent implements OnInit {
   //       return this.data;
   //     })
   //   );
-  this.route.paramMap.subscribe(params => {
-    this.publicSelect = params.get('id');
-    console.log(this.publicSelect)
-  });
+
   }
 
 
