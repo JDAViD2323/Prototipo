@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
 import { publicacion } from '../../interface/publicacion.interface';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-publicaciones',
+  selector: 'app-prueba',
   standalone: true,
-  imports: [RouterModule, ],
-  templateUrl: './publicaciones.component.html',
-  styleUrl: './publicaciones.component.css',
-  providers: [Router]
+  imports: [CommonModule,RouterModule],
+  templateUrl: './prueba.component.html',
+  styleUrl: './prueba.component.css'
 })
-export class PublicacionesComponent implements OnInit {
+export class PruebaComponent implements OnInit {
   data: publicacion[] = [
     {
       id: 0,
@@ -69,46 +68,17 @@ export class PublicacionesComponent implements OnInit {
       contenido: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam distinctio odio deserunt repellat modi sint enim dolorem. Iure accusamus labore natus aliquam iusto, consectetur cupiditate ipsa ut repudiandae accusantium. Labore."
     }
   ];
-  publu$: Observable<publicacion> | undefined;
-  selectedId: number | undefined;
-  dato: publicacion | undefined ;
-  activatedRoute: any;
-  publicSelect=0;
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router
-  ){}
+  publicSelect:any;
 
-  ngOnInit(): void {
+  constructor(private route:ActivatedRoute){
 
-    // if ( !this.router.url.includes('publicacion') ) return;
-
-    // this.activatedRoute.params
-    //   .pipe(
-    //     switchMap( ({ id }) => this.heroService.getHero( id ) ),
-    //   ).subscribe( hero => {
-
-    //     if ( !hero ) {
-    //       return this.router.navigateByUrl('/');
-    //     }
-
-    //     this.heroForm.reset( hero );
-    //     return;
-    //   });
-
-  //   this.publu$ = this.route.paramMap.pipe(
-  //     switchMap(params => {
-  //       this.selectedId = Number(params.get('id'));
-  //       console.log(this.selectedId);
-  //       return this.data;
-  //     })
-  //   );
-  // this.route.paramMap.subscribe(params => {
-  //   this.publicSelect = params.get('id');
-  //   console.log(this.publicSelect)
-  // });
   }
-
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.publicSelect = params.get('id');
+      console.log(this.publicSelect)
+    });
+  }
 
 
 }
