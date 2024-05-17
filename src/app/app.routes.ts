@@ -9,6 +9,7 @@ export const routes: Routes = [
   {path:'home', component:LayoutComponent, children:[
     {path:'', title: 'Inicio', loadComponent: () => import('./components/inicio/inicio.component').then(c => c.InicioComponent)},
     {path: "inicio", title: "Inicio", loadComponent: () => import('./components/inicio/inicio.component').then(c => c.InicioComponent)},
+    {path: "publicacion/:id", title: 'Publicaciones', loadComponent: ()=> import('./components/publicaciones/publicaciones.component').then(c => c.PublicacionesComponent)},
     {path: "bandeja", title:"Bandeja de entrada", loadComponent: () => import('./components/bandeja/bandeja.component').then(c => c.BandejaComponent)},
     {path: "calendario", title: "Calendario de Eventos", loadComponent: () => import('./components/calendario/calendario.component').then(c => c.CalendarioComponent)},
     {path: "calificaciones", title: "Calificaciones", children: [

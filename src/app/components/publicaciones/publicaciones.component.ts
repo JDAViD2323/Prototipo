@@ -1,15 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-inicio',
+  selector: 'app-publicaciones',
   standalone: true,
-  imports: [CommonModule,RouterModule,RouterLink],
-  templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.css'
+  imports: [],
+  templateUrl: './publicaciones.component.html',
+  styleUrl: './publicaciones.component.css'
 })
-export class InicioComponent {
+export class PublicacionesComponent {
   data = [
     {
       id: 0,
@@ -67,10 +65,4 @@ export class InicioComponent {
       contenido: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam distinctio odio deserunt repellat modi sint enim dolorem. Iure accusamus labore natus aliquam iusto, consectetur cupiditate ipsa ut repudiandae accusantium. Labore."
     }
   ]
-
-  orden: boolean = true;
-
-  OrdenCambio() {
-    this.orden = !this.orden;
-  }
 }
