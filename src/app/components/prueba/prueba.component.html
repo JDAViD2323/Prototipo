@@ -1,3 +1,26 @@
+<div class="flex justify-between p-2 mb-4 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
+  <div class="font-semibold">
+    Publicación
+  </div>
+  <div class="flex justify-between p-2 items-center">
+    <a [routerLink]="['../',previousPublic()]" class="hover:bg-slate-200 flex p-1 rounded-lg items-center" (click)="previousPublic()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"  width="24px" fill="#5f6368">
+        <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/>
+      </svg>
+    </a>
+    <a [routerLink]="['../',nextPublic()]"  class="hover:bg-slate-200 flex p-1 rounded-lg items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368" >
+        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z"/>
+      </svg>
+    </a>
+  </div>
+
+
+
+</div>
+
+
+
 <div class="columns-2xl  w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
   <div>
     <div>

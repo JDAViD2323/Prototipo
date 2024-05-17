@@ -24,7 +24,7 @@
   @for (item of data; track $index) {
     <div class="flex justify-center">
       <div  [ngClass]="{'card-small':orden == true, 'card-large':orden == false}">
-        <a [routerLink]="['publicacion',item.id]">
+        <a [routerLink]="['publicacion',$index]">
           <img class="pt-2 px-4 rounded-t-lg" src="{{item.img}}" alt="product image" />
         </a>
         <div class="px-5 pb-5">

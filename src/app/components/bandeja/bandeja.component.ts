@@ -28,6 +28,7 @@ export class BandejaComponent {
       id: 0,
       text: "",
       tag: "",
+      img: "",
       date: "",
       favorito: false
   };

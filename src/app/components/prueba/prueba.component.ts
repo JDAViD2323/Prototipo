@@ -11,6 +11,24 @@ import { CommonModule } from '@angular/common';
   styleUrl: './prueba.component.css'
 })
 export class PruebaComponent implements OnInit {
+nextPublic() {
+  if(this.data.length-1 > this.publicSelect){
+    return this.publicSelect+1;
+    console.log(this.data.length-1);
+    console.log(this.publicSelect);
+  }else{
+    return this.publicSelect
+    console.log(this.data.length-1);
+    console.log(this.publicSelect);
+  }
+}
+previousPublic() {
+  if(this.publicSelect > 0){
+    return this.publicSelect-1;
+  }else{
+    return this.publicSelect
+  }
+}
   data: publicacion[] = [
     {
       id: 0,
@@ -68,14 +86,14 @@ export class PruebaComponent implements OnInit {
       contenido: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam distinctio odio deserunt repellat modi sint enim dolorem. Iure accusamus labore natus aliquam iusto, consectetur cupiditate ipsa ut repudiandae accusantium. Labore."
     }
   ];
-  publicSelect:any;
+  publicSelect:number =0;
 
   constructor(private route:ActivatedRoute){
 
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.publicSelect = params.get('id');
+      this.publicSelect = Number (params.get('id'));
       console.log(this.publicSelect)
     });
   }
