@@ -118,7 +118,10 @@ export class BandejaComponent {
           //console.log(respose.toString());
           this.datas = respose;
           this.result2 = respose;
-          this.currentPage = 1;
+          // this.currentPage = 1;
+          // this.getCurrentPageData(this.result2!)
+          // this.getPageNumbers(this.result2!)
+          // console.log(this.currentPage)
         }
       )
 
@@ -131,7 +134,7 @@ export class BandejaComponent {
       this.myForm.valueChanges.subscribe(nuevovalor =>[
         console.log(nuevovalor),
         this.filtroData =this.myForm.controls['filtro'].value,
-        this.filtro(this.filtroData)
+        this.filtro(this.filtroData),
       ])
 
       this.myForm.setValue({
@@ -159,6 +162,7 @@ export class BandejaComponent {
   changePage(pageNumber: number) {
     this.currentPage = pageNumber;
     this.getCurrentPageData(this.result2!)
+    console.log(this.currentPage)
   }
 
   // Método para obtener los datos correspondientes a la página actual
@@ -196,6 +200,7 @@ export class BandejaComponent {
 
 
   filtro(tag:string){
+    this.currentPage = 1;
     if(tag === "Todos"){
       this.filtroValue = false;
     }else{
