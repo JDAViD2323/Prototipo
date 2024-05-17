@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Observable, switchMap } from 'rxjs';
+import { publicacion } from '../../interface/publicacion.interface';
 
 @Component({
   selector: 'app-publicaciones',
   standalone: true,
-  imports: [],
+  imports: [RouterModule, ],
   templateUrl: './publicaciones.component.html',
-  styleUrl: './publicaciones.component.css'
+  styleUrl: './publicaciones.component.css',
+  providers: [Router]
 })
-export class PublicacionesComponent {
-  data = [
+export class PublicacionesComponent implements OnInit {
+  data: publicacion[] = [
     {
       id: 0,
       img: "https://institutosandiego.edu.mx/wp-content/uploads/2023/08/academias.png",
@@ -64,5 +68,47 @@ export class PublicacionesComponent {
       fecha: "agosto 7, 2023",
       contenido: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam distinctio odio deserunt repellat modi sint enim dolorem. Iure accusamus labore natus aliquam iusto, consectetur cupiditate ipsa ut repudiandae accusantium. Labore."
     }
-  ]
+  ];
+  publu$: Observable<publicacion> | undefined;
+  selectedId: number | undefined;
+  dato: publicacion | undefined ;
+  activatedRoute: any;
+  publicSelect: any;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ){}
+
+  ngOnInit(): void {
+
+    // if ( !this.router.url.includes('publicacion') ) return;
+
+    // this.activatedRoute.params
+    //   .pipe(
+    //     switchMap( ({ id }) => this.heroService.getHero( id ) ),
+    //   ).subscribe( hero => {
+
+    //     if ( !hero ) {
+    //       return this.router.navigateByUrl('/');
+    //     }
+
+    //     this.heroForm.reset( hero );
+    //     return;
+    //   });
+
+  //   this.publu$ = this.route.paramMap.pipe(
+  //     switchMap(params => {
+  //       this.selectedId = Number(params.get('id'));
+  //       console.log(this.selectedId);
+  //       return this.data;
+  //     })
+  //   );
+  this.route.paramMap.subscribe(params => {
+    this.publicSelect = params.get('id');
+    console.log(this.publicSelect)
+  });
+  }
+
+
+
 }

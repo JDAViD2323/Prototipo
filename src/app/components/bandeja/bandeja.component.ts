@@ -117,6 +117,7 @@ export class BandejaComponent {
           //console.log(respose.toString());
           this.datas = respose;
           this.result2 = respose;
+          this.currentPage = 1;
         }
       )
 
