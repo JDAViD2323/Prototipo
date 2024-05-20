@@ -1,4 +1,4 @@
-<div class="columns-2xl  w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
+<div class="columns-2xl  w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white">
   <div>
     <div>
       <img [src]="data[publicSelect].img" class="w-full rounded-3xl" alt="">
@@ -12,7 +12,7 @@
     <div class="w-full">
       <div class="pt-2">
         @for (tag of data[publicSelect].tag; track $index) {
-        <span class="bg-gray-200 text-black text-xl font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+        <span class="bg-gray-200 text-black text-xl font-semibold px-2.5 py-0.5 rounded  ms-3">
           {{tag}}
         </span>
       }
@@ -25,14 +25,14 @@
               <img class="w-8 h-8 rounded-full" src="{{data[publicSelect].imgtch}}" alt="Neil image">
           </div>
           <div class="flex-1 min-w-0 ms-4">
-              <p class="text-xl font-medium text-gray-900 truncate dark:text-black">
+              <p class="text-xl font-medium text-gray-900 truncate ">
                   {{data[publicSelect].nombretch}}
               </p>
               <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                 {{data[0].fecha}}
               </p>
           </div>
-          <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+          <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
 
           </div>
       </div>
