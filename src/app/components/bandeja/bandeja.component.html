@@ -2,7 +2,7 @@
 <div class="w-full">
 
 
-  <div class="flex justify-between p-6  w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
+  <div class="flex justify-between p-6  w-full bg-white border border-gray-200 rounded-lg shadow  ">
     <div>
       <p class="font-semibold text-xl place-content-center">
         Mensajes
@@ -11,7 +11,7 @@
     <div>
       <form  [formGroup]="myForm" class="max-w-sm mx-auto">
 
-        <select  formControlName="filtro"  id="countries" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select  formControlName="filtro"  id="countries" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   ">
           <option selected >Todos</option>
           <option value="Archivados">Archivados</option>
           <option value="Favoritos">Favoritos</option>
@@ -31,7 +31,7 @@
 <div class=" mt-5 rounded-lg shadow columns-1 ">
   @for (data of messData; track $index) {
   <div >
-    <button (click)="toggleModal(data)" class="mb-2 relative text-start flex justify-between p-6 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
+    <button (click)="toggleModal(data)" class="mb-2 relative text-start flex justify-between p-6 w-full bg-white border border-gray-200 rounded-lg shadow  ">
       <div class="flex items-center relative"> <!-- Contenedor para el primer y segundo div -->
         <!-- SVG independiente -->
 
@@ -49,7 +49,7 @@
 
         <div class="pl-5"> <!-- Agregamos un padding al div -->
           <p>{{ data.text }}</p>
-          <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+          <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded   ms-3">
             {{ data.tag }}
           </span>
         </div>
@@ -70,7 +70,7 @@
     <ul class="flex items-center -space-x-px h-10 text-base">
       <!-- Botones de paginación -->
       <li *ngFor="let pageNumber of getPageNumbers(result2!)" [class]="currentPage === pageNumber ? 'bg-blue-50 text-blue-600' : 'bg-white text-gray-500'">
-        <a (click)="changePage(pageNumber)" class="flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+        <a (click)="changePage(pageNumber)" class="flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 hover:bg-gray-100 ">
           {{ pageNumber }}
         </a>
       </li>
@@ -91,7 +91,7 @@
     </div>
     <div class="flex justify-between ...">
       <div>
-        <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+        <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded   ms-3">
         Circular
       </span></div>
       <div></div>
@@ -110,7 +110,7 @@
 
       </div>
     </div>
-    <div class=" p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class=" p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 ">
       <div>
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Circular de Normas Académicas y de convivencia</h5>
       </div>
@@ -121,7 +121,7 @@
                 <img class="w-8 h-8 rounded-full" src="https://th.bing.com/th/id/OIP.tvaMwK3QuFxhTYg4PSNNVAHaHa?rs=1&pid=ImgDetMain" alt="Neil image">
             </div>
             <div class="flex-1 min-w-0 ms-4">
-                <p class="text-sm font-medium text-gray-900 truncate dark:text-black">
+                <p class="text-sm font-medium text-gray-900 truncate ">
                     MS. Mayra Martinez
                 </p>
                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
@@ -153,7 +153,7 @@
     </div>
     <div class="flex justify-between">
       <div>
-        <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-300 dark:text-black ms-3">
+        <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded   ms-3">
         {{datomoda.tag}}
       </span></div>
       <div></div>
@@ -194,9 +194,9 @@
 
       </div>
     </div>
-    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow ">
       <div>
-          <div class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Circular de Normas Académicas y de convivencia</div>
+          <div class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Circular de Normas Académicas y de convivencia</div>
       </div>
       <div>
         <div class="pt-3">
@@ -205,20 +205,20 @@
                 <img class="w-12 h-12 rounded-full" [src]="datomoda.img" alt="Neil image">
             </div>
             <div class="flex-1 min-w-0 ms-4">
-                <p class="text-sm font-medium text-gray-900 truncate dark:text-black">
+                <p class="text-sm font-medium text-gray-900 truncate ">
                     MS. Mayra Martinez
                 </p>
-                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                <p class="text-sm text-gray-500 truncate ">
                   16 Sep 2024
                 </p>
             </div>
-            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+            <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
 
             </div>
         </div>
         </div>
       </div>
-      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      <p class="mb-3 font-normal text-gray-700 ">
         {{datomoda.text}}
       </p>
 

@@ -51,13 +51,13 @@
 
 
 <aside [ngClass]="{'hidden': Status} "  id="logo-sidebar" class= "texd:w-64 w-60 flex-shrink-0 border border-blue-800 h-full" >
-  <div class="h-full px-3 py-4 overflow-y-auto  dark:bg-gray-800" style="background-color: #FF6600;">
+  <div class="h-full px-3 py-4 overflow-y-auto " style="background-color: #FF6600;">
     <div class="py-4 px-6">
       <img class="w-full " src="https://institutosandiego.edu.mx/wp-content/uploads/2023/08/Instituto-San-Diego-logo.png" alt="">
     </div>
      <ul class="space-y-2 font-medium">
         <li  >
-           <a  [routerLink]="['inicio']" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white group">
+           <a  [routerLink]="['inicio']" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg ">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
               <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/>
             </svg>
@@ -65,7 +65,7 @@
            </a>
         </li>
         <li>
-           <a routerLink="bandeja" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}] dark:hover:bg-gray-700 group">
+           <a routerLink="bandeja" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg  hover:bg-[{{color2}}] group ">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
               <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-120H640q-30 38-71.5 59T480-240q-47 0-88.5-21T320-320H200v120Zm280-120q38 0 69-22t43-58h168v-360H200v360h168q12 36 43 58t69 22ZM200-200h560-560Z"/>
             </svg>
@@ -74,7 +74,7 @@
            </a>
         </li>
         <li>
-           <a routerLink="calendario" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}] dark:hover:bg-gray-700 group">
+           <a routerLink="calendario" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}] group">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                 <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/>
               </svg>
@@ -83,7 +83,7 @@
            </a>
         </li>
         <li>
-           <a routerLink="calificaciones" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}] dark:hover:bg-gray-700 group">
+           <a routerLink="calificaciones" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}]  group">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
               <path d="M260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z"/>
             </svg>
@@ -91,7 +91,7 @@
            </a>
         </li>
         <li>
-           <a  routerLink="estado-cuenta"  routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}] dark:hover:bg-gray-700 group">
+           <a  routerLink="estado-cuenta"  routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}] group">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
               <path d="M240-80q-50 0-85-35t-35-85v-120h120v-560l60 60 60-60 60 60 60-60 60 60 60-60 60 60 60-60 60 60 60-60v680q0 50-35 85t-85 35H240Zm480-80q17 0 28.5-11.5T760-200v-560H320v440h360v120q0 17 11.5 28.5T720-160ZM360-600v-80h240v80H360Zm0 120v-80h240v80H360Zm320-120q-17 0-28.5-11.5T640-640q0-17 11.5-28.5T680-680q17 0 28.5 11.5T720-640q0 17-11.5 28.5T680-600Zm0 120q-17 0-28.5-11.5T640-520q0-17 11.5-28.5T680-560q17 0 28.5 11.5T720-520q0 17-11.5 28.5T680-480ZM240-160h360v-80H200v40q0 17 11.5 28.5T240-160Zm-40 0v-80 80Z"/>
             </svg>
@@ -99,7 +99,7 @@
            </a>
         </li>
         <li>
-           <a  routerLink="pago" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}] dark:hover:bg-gray-700 group">
+           <a  routerLink="pago" routerLinkActive="router-link-active" class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}]  group">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                 <path d="M880-720v480q0 33-23.5 56.5T800-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720Zm-720 80h640v-80H160v80Zm0 160v240h640v-240H160Zm0 240v-480 480Z"/>
               </svg>
@@ -107,7 +107,7 @@
            </a>
         </li>
         <li>
-           <a class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}] dark:hover:bg-gray-700 group">
+           <a class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[{{color2}}]  group">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                 <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
               </svg>
