@@ -1,6 +1,6 @@
 .activate{
- @apply flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#100e9f]
+ @apply flex items-center p-2 text-white rounded-lg hover:bg-[#100e9f]
 }
 .router-link-active {
-  @apply flex items-center p-2 bg-[#100e9f] text-white rounded-lg dark:text-white  hover:bg-[#100e9f];
+  @apply flex items-center p-2 bg-[#100e9f] text-white rounded-lg  hover:bg-[#100e9f];
 }

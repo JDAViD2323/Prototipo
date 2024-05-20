@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'mw-sidebar',
   standalone: true,
-  imports: [CommonModule,RouterLink, RouterModule],
+  imports: [CommonModule,RouterLink, RouterModule, MatListModule, MatIconModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
   isSidebarOpen: boolean = false;
   @Input() Status: boolean | undefined;
-
+  public colorCode: string = '#100e9f';
   color= "#FF6600";
   color2 = "#100e9f";
 
