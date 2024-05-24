@@ -4,11 +4,12 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core'; // useful for typechecking
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
+import { TooltipComponent } from "../../shared/tooltip/tooltip.component";
 
 @Component({
   selector: 'app-calendario',
   standalone: true,
-  imports: [CommonModule, FullCalendarModule],
+  imports: [CommonModule, FullCalendarModule,TooltipComponent],
   templateUrl: './calendario.component.html',
   styleUrl: './calendario.component.css',
   providers:[]
@@ -33,7 +34,7 @@ export class CalendarioComponent {
     },
     height: 'auto',
 
-    eventClick: (arg2) => this.handleEventClick(arg2),
+    eventClick: (arg2) => this.onEventClick(arg2),
     aspectRatio: 1.35,
     events: [
       { title: 'event 1', date: '2024-05-15'},
@@ -44,6 +45,27 @@ export class CalendarioComponent {
 
   onEventClick(event: any) {
     console.log('Evento cliqueado:', event);
+  }
+
+  handleMouseEnter(info: any) {
+    const tooltip = document.createElement('div');
+    tooltip.setAttribute('id', 'tooltip');
+    tooltip.innerHTML = info.event.extendedProps.description;
+    tooltip.style.position = 'absolute';
+    tooltip.style.top = `${info.jsEvent.pageY}px`;
+    tooltip.style.left = `${info.jsEvent.pageX}px`;
+    tooltip.style.backgroundColor = 'white';
+    tooltip.style.border = '1px solid black';
+    tooltip.style.padding = '5px';
+    document.body.appendChild(tooltip);
+  }
+
+
+  handleMouseLeave(info: any) {
+    const tooltip = document.getElementById('tooltip');
+    if (tooltip) {
+      tooltip.remove();
+    }
   }
 
   // handleDateClick(arg: DateClickArg) {
@@ -147,5 +169,19 @@ export class CalendarioComponent {
 //   }
 // }
 
+tooltipVisible = false;
+tooltipText = '';
+tooltipX = 0;
+tooltipY = 0;
 
+showTooltip(event: MouseEvent, text: string) {
+  this.tooltipText = text;
+  this.tooltipX = event.pageX + 10; // Ajusta la posición del tooltip
+  this.tooltipY = event.pageY + 10;
+  this.tooltipVisible = true;
+}
+
+hideTooltip() {
+  this.tooltipVisible = false;
+}
 }

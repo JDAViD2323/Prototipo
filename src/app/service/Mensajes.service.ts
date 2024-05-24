@@ -10,7 +10,7 @@ export class MensajeService {
 
   constructor(private http: HttpClient) { }
 
-  private jsonUrl = '../../assets/data/dataMensaje.json';
+  private jsonUrl = 'https://raw.githubusercontent.com/JDAViD2323/Prototipo/main/src/assets/data/dataMensaje.json?token=GHSAT0AAAAAACSHOLQK6UTTVRJ7Q7KCEDZUZSRCOVQ';
 
 
   getData(): Observable<dat[]> {
