@@ -8,7 +8,7 @@ import { publicacion } from '../interface/publicacion.interface';
   providedIn: 'root'
 })
 export class PublicacionesService {
-  private jsonUrl = '../../assets/data/dataPublicación.json';
+  private jsonUrl = 'https://raw.githubusercontent.com/JDAViD2323/Prototipo/main/src/assets/data/dataPublicaci%C3%B3n.json';
 
   constructor(private http: HttpClient) {}
 
