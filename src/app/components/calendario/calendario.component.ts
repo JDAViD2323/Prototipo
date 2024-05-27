@@ -1,187 +1,138 @@
-import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component , signal, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, EventClickArg } from '@fullcalendar/core'; // useful for typechecking
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
+import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import { TooltipComponent } from "../../shared/tooltip/tooltip.component";
-
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import { INITIAL_EVENTS, createEventId } from './event-utils';
+import esLocale from '@fullcalendar/core/locales/es';
 @Component({
-  selector: 'app-calendario',
+  selector: 'Calendario-Component',
   standalone: true,
-  imports: [CommonModule, FullCalendarModule,TooltipComponent],
+  imports: [CommonModule, RouterOutlet, FullCalendarModule],
   templateUrl: './calendario.component.html',
-  styleUrl: './calendario.component.css',
-  providers:[]
+  styleUrl: './calendario.component.css'
 })
 export class CalendarioComponent {
-
-  // calendarOptions: CalendarOptions = {
-  //   initialView: 'dayGridMonth',
-  //   plugins: [dayGridPlugin],
-  //   locale: 'es-MX',
-  //   buttonText: {
-  //     today: 'Hoy'
-  //   }
-  // };
-
-  calendarOptions:CalendarOptions ={
-    plugins: [dayGridPlugin, interactionPlugin],
-    initialView: 'dayGridMonth',
-    locale: 'es-MX',
+  calendarVisible = signal(true);
+  calendarOptions = signal<CalendarOptions>({
+    plugins: [
+      interactionPlugin,
+      dayGridPlugin,
+      timeGridPlugin,
+      listPlugin,
+    ],
     buttonText: {
-      today: 'Hoy'
+      today:    'Hoy',
+      month:    'Mes',
+      week:     'Semana',
+      day:      'Día',
+      list:     'Eventos del dia'
     },
-    height: 'auto',
+    locale: esLocale,
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+    },
+    initialView: 'dayGridMonth',
+    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    weekends: true,
+    editable: true,
+    selectable: false,
+    selectMirror: true,
+    dayMaxEvents: true,
+    select: this.handleDateSelect.bind(this),
+    eventClick: this.handleEventClick.bind(this),
+    eventsSet: this.handleEvents.bind(this)
+    /* you can update a remote database when these fire:
+    eventAdd:
+    eventChange:
+    eventRemove:
+    */
+  });
+  currentEvents = signal<EventApi[]>([]);
 
-    eventClick: (arg2) => this.onEventClick(arg2),
-    aspectRatio: 1.35,
-    events: [
-      { title: 'event 1', date: '2024-05-15'},
-      { title: 'event 2', date: '2024-05-17' }
-    ]
+  constructor(private changeDetector: ChangeDetectorRef) {
   }
-  selectedEvent: any;
 
-  onEventClick(event: any) {
-    console.log('Evento cliqueado:', event);
+  handleCalendarToggle() {
+    this.calendarVisible.update((bool) => !bool);
   }
 
-  handleMouseEnter(info: any) {
-    const tooltip = document.createElement('div');
-    tooltip.setAttribute('id', 'tooltip');
-    tooltip.innerHTML = info.event.extendedProps.description;
-    tooltip.style.position = 'absolute';
-    tooltip.style.top = `${info.jsEvent.pageY}px`;
-    tooltip.style.left = `${info.jsEvent.pageX}px`;
-    tooltip.style.backgroundColor = 'white';
-    tooltip.style.border = '1px solid black';
-    tooltip.style.padding = '5px';
-    document.body.appendChild(tooltip);
+  handleWeekendsToggle() {
+    this.calendarOptions.update((options) => ({
+      ...options,
+      weekends: !options.weekends,
+    }));
   }
 
+  handleDateSelect(selectInfo: DateSelectArg) {
+    const title = prompt('Please enter a new title for your event');
+    const calendarApi = selectInfo.view.calendar;
 
-  handleMouseLeave(info: any) {
-    const tooltip = document.getElementById('tooltip');
-    if (tooltip) {
-      tooltip.remove();
+    calendarApi.unselect(); // clear date selection
+
+    if (title) {
+      calendarApi.addEvent({
+        id: createEventId(),
+        title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay
+      });
     }
   }
 
-  // handleDateClick(arg: DateClickArg) {
-  //   alert('date click! ' + arg.dateStr)
-  // }
-  handleEventClick(event: EventClickArg) {
-    this.isModalOpen = true;
-    this.selectedEvent = event.event;
-    console.log('Selected event:', event);
+  handleEventClick(clickInfo: EventClickArg) {
+    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      clickInfo.event.remove();
+    }
   }
-  // ngOnInit() {
-  //   this.calendarOptions = {
-  //     plugins: [dayGridPlugin, interactionPlugin],
-  //     initialView: 'dayGridMonth',
-  //     locale: 'es-MX'
-  //   };
 
-  closeModal() {
-    this.isModalOpen = false;
+  handleEvents(events: EventApi[]) {
+    this.currentEvents.set(events);
+    this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
-  //isModalOpen: boolean = false;
-  modalData: any = null; // Variable para almacenar los datos del modal
 
-  openModal() {
-    this.isModalOpen = true;
+
+  ngAfterViewInit() {
+
+    setTimeout(() => {
+      this.handleCalendarToggle();
+    }, 10);
+    setTimeout(() => {
+      this.handleCalendarToggle();
+    }, 10);
   }
-  isModalOpen: boolean = false
-//   daysGrid: number[][] = [];
-//   constructor() { }
-//   year:number | undefined;
-//   mes:number  | undefined;
-//   ngOnInit(): void {
-//     this.year = new Date().getFullYear();
-//     this.mes = new Date().getMonth();
-//     this.createCalendar(this.year, this.mes); // Llama a la función para crear el calendario
+}
+
+
+
+// import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+// import { Calendar } from '@fullcalendar/core';
+// import dayGridPlugin from '@fullcalendar/daygrid';
+
+// @Component({
+//   selector: 'Calendario-Component',
+//   template: '<div #calendar></div>',
+//   standalone: true,
+// })
+// export class CalendarioComponent implements AfterViewInit {
+//   @ViewChild('calendar') calendarEl!: ElementRef;
+
+//   ngAfterViewInit() {
+//     const calendar = new Calendar(this.calendarEl.nativeElement, {
+//       plugins: [dayGridPlugin],
+//       initialView: 'dayGridMonth',
+//       locale: "es-MX"
+//     });
+//     calendar.render();
+//     calendar.updateSize();
 //   }
 
-//   createCalendar(year: number, month: number): void {
-//     let mon = month - 1; // los meses en JS son 0..11, no 1..12
-//     let d = new Date(year, mon);
 
-//     const firstDayOfWeek = this.getDay(d);
-//     const lastDayOfPreviousMonth = new Date(year, mon, 0).getDate();
-//     const prependEmptyDays = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Días a agregar al principio
-
-//     let daysInMonth = [];
-//     let daysGridRow = [];
-
-//     // Agregar días del mes anterior si el primer día no es lunes
-//     if (prependEmptyDays > 0) {
-//       for (let i = lastDayOfPreviousMonth - prependEmptyDays + 1; i <= lastDayOfPreviousMonth; i++) {
-//         daysGridRow.push(i);
-//       }
-//     }
-
-//     // <div> con el día (1 - 31)
-//     while (d.getMonth() == mon) {
-//       daysInMonth.push(d.getDate());
-
-//       if (this.getDay(d) % 7 == 6) {
-//         // Domingo, último día de la semana --> nueva línea
-//         this.daysGrid.push([...daysGridRow, ...daysInMonth]);
-//         daysInMonth = [];
-//         daysGridRow = [];
-//       }
-
-//       d.setDate(d.getDate() + 1);
-//     }
-
-//     // Si quedan días por agregar después de completar la última semana
-//     if (daysInMonth.length > 0) {
-
-//        // Llenar el resto de la fila con días del mes siguiente
-//        const nextMonth = month === 12 ? 1 : month + 1;
-//        const daysInNextMonth = new Date(year, nextMonth, 0).getDate();
-//        for (let i = 1; daysGridRow.length < 7; i++) {
-//          daysGridRow.push(i);
-//        }
-//        this.daysGrid.push([...daysGridRow, ...daysInMonth]);
-//       // Si el último día de la última semana del mes actual es un sábado (6),
-//       // necesitamos iniciar una nueva fila para el mes siguiente
-//       if (this.getDay(d) === 6) {
-//         d.setDate(1); // Establecer la fecha al primer día del mes siguiente
-//         const firstDayOfWeekNextMonth = this.getDay(d);
-//         const nextDaysGridRow = [];
-//         for (let i = 1; i <= 7; i++) {
-//           nextDaysGridRow.push(i);
-//         }
-//         this.daysGrid.push([...nextDaysGridRow]);
-//       }
-
-
-//     }
-//   }
-
-//   getDay(date: Date): number {
-//     // Obtiene el número de día desde 0 (lunes) a 6 (domingo)
-//     let day = date.getDay();
-//     if (day == 0) day = 7; // Hacer domingo (0) el último día
-//     return day - 1;
-//   }
 // }
-
-tooltipVisible = false;
-tooltipText = '';
-tooltipX = 0;
-tooltipY = 0;
-
-showTooltip(event: MouseEvent, text: string) {
-  this.tooltipText = text;
-  this.tooltipX = event.pageX + 10; // Ajusta la posición del tooltip
-  this.tooltipY = event.pageY + 10;
-  this.tooltipVisible = true;
-}
-
-hideTooltip() {
-  this.tooltipVisible = false;
-}
-}

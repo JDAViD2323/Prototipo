@@ -6,11 +6,12 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import { VariableService } from '../../sidebar.service';
 import {MediaMatcher} from '@angular/cdk/layout';
+import { CalendarioComponent } from '../calendario/calendario.component';
 
 @Component({
   selector: 'mw-layout',
   standalone: true,
-  imports: [NavbarComponent,RouterOutlet,SidebarComponent, FooterComponent,MatSidenavModule],
+  imports: [NavbarComponent,RouterOutlet,SidebarComponent, FooterComponent,MatSidenavModule,CalendarioComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })

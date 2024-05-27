@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { PublicacionesComponent } from './components/publicaciones/publicaciones.component';
+import { CalendarioComponent } from './components/calendario/calendario.component';
 
 export const routes: Routes = [
   {path: '', title: 'Login',  component:LoginComponent},
@@ -17,7 +18,7 @@ export const routes: Routes = [
     ]},
     {path: "publicacion", title: 'Publicaciones', loadComponent: ()=> import('./components/publicaciones/publicaciones.component').then(c => c.PublicacionesComponent)},
     {path: "bandeja", title:"Bandeja de entrada", loadComponent: () => import('./components/bandeja/bandeja.component').then(c => c.BandejaComponent)},
-    {path: "calendario", title: "Calendario de Eventos", loadComponent: () => import('./components/calendario/calendario.component').then(c => c.CalendarioComponent)},
+    {path: "calendario", title: "Calendario de Eventos",  loadComponent: () => import('./components/calendario/calendario.component').then(c => c.CalendarioComponent)},
     {path: "calificaciones", title: "Calificaciones", children: [
       {path: "", loadComponent: () => import('./components/calificaciones/calificaciones.component').then(c => c.CalificacionesComponent)},
       {path: "materia", title:'Materia', loadComponent: () => import('./components/calificaciones/pages/grafica1/grafica1.component').then(c => c.Grafica1Component)}

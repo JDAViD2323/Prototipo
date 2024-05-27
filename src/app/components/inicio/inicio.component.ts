@@ -4,11 +4,12 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { publicacion } from '../../interface/publicacion.interface';
 import { PublicacionesService } from '../../service/Publicaciones.service';
 import {  HttpClient, HttpClientModule } from '@angular/common/http';
+import { CalendarioComponent } from '../calendario/calendario.component';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [CommonModule,RouterModule,RouterLink,HttpClientModule],
+  imports: [CommonModule,RouterModule,RouterLink,HttpClientModule,CalendarioComponent],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css',
   providers: [HttpClient,PublicacionesService]

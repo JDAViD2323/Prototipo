@@ -8,7 +8,9 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),provideAnimationsAsync(), provideAnimationsAsync(),BrowserModule]
+  providers: [provideRouter(routes),provideAnimationsAsync(), provideAnimationsAsync(),BrowserModule,
+
+  ]
 };
 
 
