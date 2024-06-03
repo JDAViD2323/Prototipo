@@ -83,8 +83,9 @@ authentication = {
         this.authentication.isAuth=true;
         this.authentication.userName=usuario;
         localStorage.setItem('authorizationData',JSON.stringify(datoauto) );
-        gDatosUsuario.Tenant.Id = id;
+        gDatosUsuario.Tenant.Id = clienteid;
         gDatosUsuario.Usuario.Llave = data.userId;
+        gDatosUsuario.Usuario.Nombre = usuario;
         gDatosUsuario.Usuario.Tipo = data.userType;
         gDatosUsuario.Usuario.DisLlave = data.disLlave;
         gDatosUsuario.Usuario.blnToken = false

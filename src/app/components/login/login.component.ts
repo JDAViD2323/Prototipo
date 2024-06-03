@@ -36,7 +36,7 @@ export class LoginComponent {
     "Cliente": "",
     "Color": "#746eac",
     "Imagen": "https://th.bing.com/th/id/R.0b0e8bf6746e02b220e57a95795bf26d?rik=8IRXCp8uh%2byb3A&pid=ImgRaw&r=0",
-    "Titulo": "Innovar alumno"
+    "Titulo": "Innovat alumno"
   }
 
   public myForm: FormGroup = this.fb.group({
@@ -59,6 +59,7 @@ export class LoginComponent {
      this.loginService.getIdClient(unidad).subscribe(
       (data) => {
         this.dataConfiguracion =data
+        console.log(this.dataConfiguracion)
         localStorage.setItem("gMuralWebLoginTema",JSON.stringify(data))
       }
      )
