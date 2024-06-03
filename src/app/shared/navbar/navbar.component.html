@@ -296,7 +296,7 @@
             <mat-icon>settings_account_box</mat-icon>
             <span>Configuración</span>
           </button>
-          <button [routerLink]="['../']" mat-menu-item>
+          <button (click)="cerrarSesion()" [routerLink]="['/login/']" mat-menu-item>
             <mat-icon>logout</mat-icon>
             <span>Cerrar Sesión</span>
           </button>

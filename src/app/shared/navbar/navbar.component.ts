@@ -4,6 +4,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { VariableService } from '../../sidebar.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import { LoginService } from '../../service/login.service';
 
 @Component({
   selector: 'mw-navbar',
@@ -17,7 +18,7 @@ export class NavbarComponent {
   isOpen: boolean = false;
   isOpenS: boolean = false
 
-  constructor(private variableService: VariableService) {}
+  constructor(private variableService: VariableService, private loginService : LoginService) {}
 
   cambiarValorDeVariable() {
     this.isOpenS = !this.isOpenS;
@@ -26,6 +27,9 @@ export class NavbarComponent {
   color= "#FF6600";
   color2 = "#100e9f";
 
+  cerrarSesion(){
+    this.loginService.LogOut();
+  }
 
   toggleSidebars(){
     this.isOpenS = !this.isOpenS;

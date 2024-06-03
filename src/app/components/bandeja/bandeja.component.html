@@ -32,8 +32,7 @@
   @for (data of messData; track $index) {
   <div >
     <button (click)="toggleModal(data)" class="mb-2 relative text-start flex justify-between p-6 w-full bg-white border border-gray-200 rounded-lg shadow  ">
-      <div class="flex items-center relative"> <!-- Contenedor para el primer y segundo div -->
-        <!-- SVG independiente -->
+      <div class="flex items-center relative">
 
         <button (click)="toggleFavorite(data,$event)" class="hover:bg-slate-200 flex p-3 rounded-lg items-center">
           <svg *ngIf="data.favorito; else svg2" class="w-8 h-8 text-yellow-300 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20" >
@@ -47,20 +46,21 @@
         </button>
 
 
-        <div class="pl-5"> <!-- Agregamos un padding al div -->
+        <div class="pl-5">
+          <p>Titulo</p>
           <p>{{ data.text }}</p>
-          <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded   ms-3">
+          <span class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
             {{ data.tag }}
           </span>
         </div>
-      </div> <!-- Fin del contenedor para el primer y segundo div -->
+      </div>
 
-      <div class="w-16 font-semibold text-gray-400"> <!-- Tercer div alineado a la derecha -->
-        <p>{{ data.date }}</p>
+      <div class="w-16 font-semibold text-gray-400">
       </div>
     </button>
   </div>
 }
+
 
 
 </div>
@@ -153,7 +153,7 @@
     </div>
     <div class="flex justify-between">
       <div>
-        <span class="bg-purple-400 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded   ms-3">
+        <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
         {{datomoda.tag}}
       </span></div>
       <div></div>

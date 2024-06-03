@@ -30,13 +30,13 @@ export class CalendarioComponent {
       month:    'Mes',
       week:     'Semana',
       day:      'Día',
-      list:     'Eventos del dia'
+      list:     'Eventos'
     },
     locale: esLocale,
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+      right: '',
     },
     initialView: 'dayGridMonth',
     initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed

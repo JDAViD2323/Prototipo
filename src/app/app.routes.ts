@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { Component } from '@angular/core';
-import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { PublicacionesComponent } from './components/publicaciones/publicaciones.component';
 import { CalendarioComponent } from './components/calendario/calendario.component';
+import { LoginComponent } from './components/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {path: '', title: 'Login',  component:LoginComponent},
@@ -26,7 +27,7 @@ export const routes: Routes = [
     {path: 'estado-cuenta', title: 'Estado de cuenta', loadComponent: () => import('./components/estado-cuenta/estado-cuenta.component').then(c => c.EstadoCuentaComponent)},
     {path: 'pago', title: 'Pagos', loadComponent: () => import('./components/pagos/pagos.component').then(c => c.PagosComponent)},
     {path: 'perfil',title: 'Perfil', loadComponent: () => import('./components/perfil/perfil.component').then(c => c.PerfilComponent)}
-  ]},
+  ],canActivate: [authGuard]},
   {path: '**', redirectTo:'home'}
 
 ];
