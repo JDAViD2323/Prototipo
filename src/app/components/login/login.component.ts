@@ -3,26 +3,31 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 import { LoginService } from '../../service/login.service';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { ConfiguracionLogin } from '../../interface/configuracionLogin.interface';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import FingerprintJS from '@fingerprintjs/fingerprintjs'
 import { MuralWebDataUsuario } from '../../interface/MuralWebDataUsuario.interface';
 import { authorizationData } from '../../interface/authorizationData.interface';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'mw-login',
   standalone: true,
-  imports: [RouterModule, RouterLink,CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [RouterModule, RouterLink,CommonModule,FormsModule,ReactiveFormsModule,SpinnerComponent,NgxSpinnerModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
+  public cargando: boolean = false;
+
+
 
 
   fpPromise = FingerprintJS.load()
   id:string = "";
-  constructor(private loginService: LoginService, private fb: FormBuilder){
+  constructor(private loginService: LoginService, private fb: FormBuilder,private spinner: NgxSpinnerService,private route:Router){
     (async () => {
       // Get the visitor identifier when you need it.
       const fp = await this.fpPromise
@@ -30,6 +35,7 @@ export class LoginComponent {
       console.log("fring" + result.visitorId)
       this.id = result.visitorId
     })()
+
   }
 
   dataConfiguracion :ConfiguracionLogin= {
@@ -91,11 +97,54 @@ export class LoginComponent {
 
   log(){
 
+
+   var authentication = {
+      isAuth: false,
+      userName: ""
+  };
+  var gDatosUsuario: MuralWebDataUsuario = {
+    Tenant: {
+      Id: ''
+    }, Usuario: {
+      Nombre: '',
+      Llave: '',
+      Tipo: '',
+      DisLlave: '',
+      blnToken: false
+    } };
+
     if ( this.myForm.invalid ) {
       this.myForm.markAllAsTouched();
       return;
     }
-    this.loginService.getToken(this.dataConfiguracion.Cliente,this.myForm.controls['usuario'].value,this.myForm.controls['password'].value,this.id)
+    this.cargando = true;
+    this.loginService.getToken(this.dataConfiguracion.Cliente,this.myForm.controls['usuario'].value,this.myForm.controls['password'].value,this.id).subscribe(
+      (data:any) => {
+
+
+         let datoauto = {
+          "token": data.access_token,
+          "userName": this.myForm.controls['usuario'].value,
+          "refreshToken": data.refresh_token
+        }
+        authentication.isAuth=true;
+        authentication.userName=this.myForm.controls['usuario'].value;
+        localStorage.setItem('authorizationData',JSON.stringify(datoauto) );
+        gDatosUsuario.Tenant.Id = this.dataConfiguracion.Cliente;
+        gDatosUsuario.Usuario.Llave = data.userId;
+        gDatosUsuario.Usuario.Nombre = this.myForm.controls['usuario'].value;
+        gDatosUsuario.Usuario.Tipo = data.userType;
+        gDatosUsuario.Usuario.DisLlave = data.disLlave;
+        gDatosUsuario.Usuario.blnToken = false
+        console.log(gDatosUsuario.Tenant)
+        this.loginService.GuardarUsuario(gDatosUsuario);
+        this.cargando = false;
+        this.route.navigateByUrl('/home/')
+      }, error => {
+        console.error(error);
+        this.cargando = false;
+      }
+    )
 
 
   }

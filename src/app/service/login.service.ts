@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ConfiguracionLogin } from '../interface/configuracionLogin.interface';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { MuralWebDataUsuario } from '../interface/MuralWebDataUsuario.interface';
 import { Router } from '@angular/router';
 import { authorizationData } from '../interface/authorizationData.interface';
@@ -19,7 +19,7 @@ export class LoginService {
         blnToken: false
     },
     Tenant: {
-        Id: null
+        Id: ""
     }
   };
   constructor(private http: HttpClient, private route:Router){
@@ -73,30 +73,8 @@ authentication = {
 
     return this.http.post(this.API,body,{
       headers: myheader
-    }).subscribe(
-      (data:any) => {
-         let datoauto = {
-          "token": data.access_token,
-          "userName": usuario,
-          "refreshToken": data.refresh_token
-        }
-        this.authentication.isAuth=true;
-        this.authentication.userName=usuario;
-        localStorage.setItem('authorizationData',JSON.stringify(datoauto) );
-        gDatosUsuario.Tenant.Id = clienteid;
-        gDatosUsuario.Usuario.Llave = data.userId;
-        gDatosUsuario.Usuario.Nombre = usuario;
-        gDatosUsuario.Usuario.Tipo = data.userType;
-        gDatosUsuario.Usuario.DisLlave = data.disLlave;
-        gDatosUsuario.Usuario.blnToken = false
-        console.log(gDatosUsuario.Tenant)
-        this.GuardarUsuario(gDatosUsuario);
-        this.route.navigateByUrl('/home/')
-
-      }
-    )
+    })
   }
-
 
 
   GuardarUsuario(gDatosUsuario:any) {
@@ -111,6 +89,18 @@ authentication = {
 
 LogOut(){
   localStorage.removeItem("authorizationData");
+  let myheader = new HttpHeaders()
+  .set('Authorization', this.getTokenStorage())
+  .set('X-Tenant-Id', "desarrolloweb");
+   var url = "https://innovat1.mx/gmural/serverpruebas/api/v0.1/usuarios/logout";
+   const myheaders = { 'Authorization': `Bearer ${this.getTokenStorage()}` }
+
+  localStorage.removeItem("authorizationData");
+  const headers = { 'Authorization': `Bearer ${this.getTokenStorage()}`, 'X-Tenant-Id': `desarrolloweb`}
+  console.log(headers);
+  return this.http.post(url,{headers:headers})
+
+
 }
 
   refreshToken() {
@@ -136,5 +126,17 @@ LogOut(){
     )
   }
 
+  getTokenStorage(){
+    var datos = (localStorage.getItem("authorizationData"));
+    var dat: authorizationData =JSON.parse(String(datos))
+    return dat.token
+  }
+
+
+  getTenantId():string{
+    var datos = (localStorage.getItem("gMuralWebDataUsuario"));
+    var dat: MuralWebDataUsuario =JSON.parse(String(datos))
+    return dat.Tenant.Id
+  }
 
 }

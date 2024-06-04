@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, inject } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { VariableService } from '../../sidebar.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import { LoginService } from '../../service/login.service';
+import { catchError, of } from 'rxjs';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'mw-navbar',
@@ -18,7 +20,7 @@ export class NavbarComponent {
   isOpen: boolean = false;
   isOpenS: boolean = false
 
-  constructor(private variableService: VariableService, private loginService : LoginService) {}
+  constructor(private variableService: VariableService, private loginService : LoginService, private userService:UserService) {}
 
   cambiarValorDeVariable() {
     this.isOpenS = !this.isOpenS;
@@ -28,7 +30,17 @@ export class NavbarComponent {
   color2 = "#100e9f";
 
   cerrarSesion(){
-    this.loginService.LogOut();
+    // this.loginService.LogOut().subscribe(
+    //   (response) => { console.log(response); },
+    //   (error) => { console.log(error); });
+    //var userService = inject(UserService);
+    this.userService.logOut().subscribe(
+      (data)=>{
+        console.log(data)
+      },(error)=>{
+        console.log(error)
+      }
+    )
   }
 
   toggleSidebars(){
@@ -51,6 +63,10 @@ export class NavbarComponent {
 
   openModal() {
     this.isModalOpen = true;
+  }
+
+  token(){
+    this.loginService.refreshToken()
   }
 
 

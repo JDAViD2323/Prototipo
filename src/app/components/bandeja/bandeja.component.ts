@@ -101,7 +101,11 @@ export class BandejaComponent {
   })
 
   ngOnInit() {
-
+    this.mensajeService.getmessagesServe().subscribe(
+      (Response) =>{
+        console.log(Response)
+      }
+    )
 
       // this.mensajeService.getData().Observable<dat[]>(
       //   (response) => {

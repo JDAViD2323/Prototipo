@@ -1,14 +1,39 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
+import { LoginService } from '../../service/login.service';
+import { inject } from '@angular/core';
 
 export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
-  return next(req).pipe(catchError((error : HttpErrorResponse)=>{
-    let errorMessage = ""
-    if(error.error instanceof ErrorEvent){
-      errorMessage = `Error: ${error.message}`
-    }else{
-      errorMessage = `Error code : ${error.status}, message: ${error.message}`
-    }
-    return throwError(()=> errorMessage)
-  }));
+  const loginService = inject(LoginService);
+  return next(req).pipe(
+    catchError((err) => {
+      if (err instanceof HttpErrorResponse) {
+        // Handle HTTP errors
+        if (err.status === 401) {
+          // Specific handling for unauthorized errors
+          console.log("error 401 aaaaaaaaaaaaaaaaaaaaaaaa")
+          loginService.refreshToken()
+          return next(req.clone({
+            setHeaders: {
+              Authorization: `Bearer ${loginService.getTokenStorage}`
+            }
+          }))
+
+        } else {
+
+          console.error('HTTP error:', err);
+        }
+      } else {
+
+        console.error('An error occurred:', err);
+      }
+
+      loginService.LogOut()
+      return throwError(() => err);
+    })
+  );;
 };
+
+
+
+

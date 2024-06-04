@@ -5,6 +5,7 @@ import { publicacion } from '../../interface/publicacion.interface';
 import { PublicacionesService } from '../../service/Publicaciones.service';
 import {  HttpClient, HttpClientModule } from '@angular/common/http';
 import { CalendarioComponent } from '../calendario/calendario.component';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-inicio',
@@ -20,13 +21,18 @@ export class InicioComponent implements OnInit {
 
   publicaciones: publicacion[] = [];
 
-  constructor(private publicacionesService: PublicacionesService) {}
+  constructor(private publicacionesService: PublicacionesService, private usuarioService: UserService) {}
 
   ngOnInit(): void {
     this.publicacionesService.getPublicaciones().subscribe(
       data => this.data = data,
       error => console.error('Error al obtener las publicaciones', error)
     );
+    this.usuarioService.getuser().subscribe(
+      (data)=>{
+        console.log(data);
+      }
+    )
   }
 
 
