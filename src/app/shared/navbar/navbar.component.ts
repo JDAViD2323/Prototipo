@@ -34,13 +34,14 @@ export class NavbarComponent {
     //   (response) => { console.log(response); },
     //   (error) => { console.log(error); });
     //var userService = inject(UserService);
-    this.userService.logOut().subscribe(
-      (data)=>{
-        console.log(data)
-      },(error)=>{
-        console.log(error)
-      }
-    )
+    // this.userService.logOut().subscribe(
+    //   (data)=>{
+    //     console.log(data)
+    //   },(error)=>{
+    //     console.log(error)
+    //   }
+    // )
+    this.loginService.LogOut()
   }
 
   toggleSidebars(){

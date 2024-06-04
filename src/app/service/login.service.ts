@@ -89,16 +89,17 @@ authentication = {
 
 LogOut(){
   localStorage.removeItem("authorizationData");
-  let myheader = new HttpHeaders()
-  .set('Authorization', this.getTokenStorage())
-  .set('X-Tenant-Id', "desarrolloweb");
-   var url = "https://innovat1.mx/gmural/serverpruebas/api/v0.1/usuarios/logout";
-   const myheaders = { 'Authorization': `Bearer ${this.getTokenStorage()}` }
+  this.route.navigateByUrl('login');
+  // let myheader = new HttpHeaders()
+  // .set('Authorization', this.getTokenStorage())
+  // .set('X-Tenant-Id', "desarrolloweb");
+  //  var url = "https://innovat1.mx/gmural/serverpruebas/api/v0.1/usuarios/logout";
+  //  const myheaders = { 'Authorization': `Bearer ${this.getTokenStorage()}` }
 
-  localStorage.removeItem("authorizationData");
-  const headers = { 'Authorization': `Bearer ${this.getTokenStorage()}`, 'X-Tenant-Id': `desarrolloweb`}
-  console.log(headers);
-  return this.http.post(url,{headers:headers})
+  // localStorage.removeItem("authorizationData");
+  // const headers = { 'Authorization': `Bearer ${this.getTokenStorage()}`, 'X-Tenant-Id': `desarrolloweb`}
+  // console.log(headers);
+  // return this.http.post(url,{headers:headers})
 
 
 }
