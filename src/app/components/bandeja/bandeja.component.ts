@@ -174,34 +174,34 @@ export class BandejaComponent {
   // ];
 
   // Método para cambiar la página
-  changePage(pageNumber: number) {
-    this.currentPage = pageNumber;
-    this.getCurrentPageData(this.result2!)
-    console.log(this.currentPage)
-  }
+  // changePage(pageNumber: number) {
+  //   this.currentPage = pageNumber;
+  //   this.getCurrentPageData(this.result2!)
+  //   console.log(this.currentPage)
+  // }
 
   // Método para obtener los datos correspondientes a la página actual
-  getCurrentPageData(datos: dat[]) {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.messData = datos!.slice(startIndex, endIndex);
+  // getCurrentPageData(datos: dat[]) {
+  //   const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  //   const endIndex = startIndex + this.itemsPerPage;
+  //   this.messData = datos.slice(startIndex, endIndex);
     // if(this.filtroValue){
     //   return this.result2.slice(startIndex, endIndex);
     // }else{
     //   return this.datas.slice(startIndex, endIndex);
     // }
 
-  }
+  // }
 
   // Método para obtener los números de página
-  getPageNumbers(datos:dat[]) {
-    if(this.messData.length ===0){
-      this.getCurrentPageData(datos);
-    }
-    //const pageCount = Math.ceil(this.datas.length / this.itemsPerPage);
-    const pageCount = Math.ceil(datos.length / this.itemsPerPage);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
-  }
+  // getPageNumbers(datos:dat[]) {
+  //   if(this.messData.length ===0){
+  //     this.getCurrentPageData(datos);
+  //   }
+  //   //const pageCount = Math.ceil(this.datas.length / this.itemsPerPage);
+  //   const pageCount = Math.ceil(datos.length / this.itemsPerPage);
+  //   return Array(pageCount).fill(0).map((x, i) => i + 1);
+  // }
 
   //  filtrarProductos(array:dat[], searchString:String): void{
   //   const result = array.filter(x => {
@@ -237,8 +237,8 @@ export class BandejaComponent {
       this.result2 = this.datas;
       console.log(this.datas);
     }
-    this.getCurrentPageData(this.result2!)
-    this.getPageNumbers(this.result2!)
+    // this.getCurrentPageData(this.result2!)
+    // this.getPageNumbers(this.result2!)
   }
 
 

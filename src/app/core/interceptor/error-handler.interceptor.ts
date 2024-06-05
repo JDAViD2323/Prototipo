@@ -8,14 +8,15 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((err) => {
       if (err instanceof HttpErrorResponse) {
-        // Handle HTTP errors
         if (err.status === 401) {
-          // Specific handling for unauthorized errors
+
           console.log("error 401 aaaaaaaaaaaaaaaaaaaaaaaa")
+          console.log(loginService.getTokenStorage())
           loginService.refreshToken()
+          console.log(loginService.getTokenStorage())
           return next(req.clone({
             setHeaders: {
-              Authorization: `Bearer ${loginService.getTokenStorage}`
+              Authorization: `Bearer ${loginService.getTokenStorage()}`
             }
           }))
 
